@@ -1,0 +1,2 @@
+total_orders,delivered_orders,failed_orders,late_delivery_rate_pct,avg_delivery_days,avg_order_payment,total_payment_value,avg_review_score,repeat_customers,repeat_customer_rate_pct
+600,550,24,20.0,12.15,372.18,221444.71,4.09,182,52.6
