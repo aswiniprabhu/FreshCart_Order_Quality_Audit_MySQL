@@ -2,7 +2,7 @@
 
 A portfolio SQL project focused on **data quality, batch-style validation, order fulfilment, reconciliation, and business reporting** using the schema of the **Brazilian E-Commerce Public Dataset by Olist**.
 
-> **Portfolio note:** `data/sample/` contains a small synthetic, schema-compatible demo dataset so the project can be tested immediately. For the full portfolio analysis, use the original Olist CSV files from Kaggle / Olist.
+> **Portfolio note** `data/sample/` contains a small synthetic, schema-compatible demo dataset so the project can be tested immediately. For the full portfolio analysis, use the original Olist CSV files from Kaggle/Olist.
 
 ## Why this project
 
@@ -32,19 +32,26 @@ Sources:
 
 The full raw dataset is **not redistributed in this repository**. Download it from the source above and place the CSV files in your local data folder.
 
-## Data model
+## Data Model
+The analysis uses eight related tables:
 
-```mermaid
-erDiagram
-    CUSTOMERS ||--o{ ORDERS : places
-    ORDERS ||--o{ ORDER_ITEMS : contains
-    ORDERS ||--o{ PAYMENTS : has
-    ORDERS ||--o{ REVIEWS : receives
-    PRODUCTS ||--o{ ORDER_ITEMS : appears_in
-    SELLERS ||--o{ ORDER_ITEMS : fulfils
-    CATEGORY_TRANSLATION ||--o{ PRODUCTS : translates
+```text
+customers
+    │
+    └── orders
+          │
+          ├── order_items
+          │      ├── products
+          │      └── sellers
+          │
+          ├── order_payments
+          │
+          └── order_reviews
+
+products
+    │
+    └── category_translation
 ```
-
 ## Important SQL design decision
 
 `order_items`, `order_payments`, and `order_reviews` can each contain multiple rows per order. Joining all three directly would create a **many-to-many fan-out** and inflate revenue/payment values.
@@ -72,7 +79,6 @@ FreshCart_Order_Quality_Audit_MySQL/
 ├── docs/
 │   ├── DATA_DICTIONARY.md
 │   ├── PROJECT_STORY.md
-│   ├── RESUME_ENTRY.md
 │   └── MYSQL_WORKBENCH_IMPORT_GUIDE.md
 └── results/
     ├── sample_kpi_summary.csv
@@ -130,8 +136,8 @@ The project includes a batch-quality scorecard that checks duplicate business ke
 
 The files in `results/` are generated from the included **synthetic demo dataset only**. They demonstrate the workflow but are not presented as findings from the full Olist dataset.
 
-## Resume-ready project title
-
-**FreshCart Order Quality Audit | SQL, MySQL**
-
-See `docs/RESUME_ENTRY.md` for concise resume bullets. A private interview-learning note is included locally under `private_notes/` and is ignored by GitHub Desktop through `.gitignore`.
+## Tools Used
+- MySQL 8.0
+- MySQL Workbench
+- SQL
+- GitHub
